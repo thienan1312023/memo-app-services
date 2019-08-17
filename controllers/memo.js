@@ -8,8 +8,8 @@ exports.test = function (req, res) {
 exports.memo_create = function (req, res) {
     const memo = new memo(
         {
-            name: req.body.name,
-            price: req.body.price
+            title: req.body.title,
+            content: req.body.content
         }
     );
 
