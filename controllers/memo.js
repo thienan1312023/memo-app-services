@@ -1,4 +1,4 @@
-const memo = require('../models/memo');
+const Memo = require('../models/memo');
 
 //Simple version, without validation or sanitation
 exports.test = function (req, res) {
@@ -6,13 +6,12 @@ exports.test = function (req, res) {
 };
 
 exports.memo_create = function (req, res) {
-    const memo = new memo(
+    let memo = new Memo(
         {
             title: req.body.title,
             content: req.body.content
         }
     );
-
     memo.save(function (err) {
         if (err) {
             return next(err);

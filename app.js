@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/memos', memo);
 
-var port = 1234;
+var port = 3100;
 
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);
