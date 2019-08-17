@@ -1,27 +1,18 @@
-// app.js
-
-var express = require('express');
-var bodyParser = require('body-parser');
-
-var memo = require('./routes/memo'); // Imports routes for the memos
-var app = express();
-
-
-// Set up mongoose connection
-var mongoose = require('mongoose');
-var dev_db_url = 'mongodb://testdb:password123@ds263927.mlab.com:63927/memodb';
-var mongoDB = process.env.MONGODB_URI || dev_db_url;
-mongoose.connect(mongoDB);
-mongoose.Promise = global.Promise;
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const memo = require('./routes/memo'); // Imports routes for the memos
+const PORT = process.env.PORT || 3002;
+//const { mongoose } = require('./db.js');
+mongoose.connect('mongodb://testdb:password123@ds263927.mlab.com:63927/memodb', { useNewUrlParser: true }, function(error){
+  if(!error){
+    console.log("Connect Server mLab memodb Successfully");
+  }else{
+    console.log("Has error when connect");
+  }
+}); 
+const app = express();
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
+app.listen(PORT, () => console.log('Server started at port in env'));
 app.use('/memos', memo);
-
-var port = process.env.PORT || 3002;;
-
-app.listen(port, () => {
-    console.log('Server is up and running on port numner ' + port);
-});
