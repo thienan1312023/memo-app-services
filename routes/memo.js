@@ -11,11 +11,12 @@ router.get('/test', memo_controller.test);
 
 router.post('/create', memo_controller.memo_create);
 
-router.get('/:id', memo_controller.memo_details);
+// router.get('/:id', memo_controller.memo_details);
 
 router.put('/:id/update', memo_controller.memo_update);
 
 router.delete('/:id/delete', memo_controller.memo_delete);
 
+router.get('/', memo_controller.memo_getAll);
 
 module.exports = router;
