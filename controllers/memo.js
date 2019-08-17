@@ -9,7 +9,9 @@ exports.memo_create = function (req, res) {
     let memo = new Memo(
         {
             title: req.body.title,
-            content: req.body.content
+            content: req.body.content,
+            color: req.body.color,
+            createBy: req.body.userName
         }
     );
     memo.save(function (err) {
