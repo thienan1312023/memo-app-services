@@ -12,6 +12,7 @@ mongoose.connect('mongodb://testdb:password123@ds263927.mlab.com:63927/memodb', 
     console.log("Has error when connect");
   }
 }); 
+mongoose.set('useFindAndModify', false);
 const app = express();
 app.use(cors({ origin: '*' }));
 app.use(bodyParser.json());
