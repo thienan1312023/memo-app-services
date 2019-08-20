@@ -1,17 +1,12 @@
 const express = require('express');
-const User = require('../../models/user');
+const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 require('dotenv').config();
-const router = express.Router();
 
-router.post('/signup', (req, res, next) => {
-  const { isValid, errors } = signupValidator(req.body);
-  if (!isValid) {
-    return res.status(400).json({ error: true, errors });
-  }
+exports.user_signup = function(req, res, next) {
   var userNew = new User({
-    userName: req.body.lastName,
+    userName: req.body.userName,
     password: req.body.password
   });
   var salt = bcrypt.genSaltSync(10);
@@ -35,11 +30,11 @@ router.post('/signup', (req, res, next) => {
         next(err);
       });
   });
-});
+};
 
 
 
-router.post('/login', async (req, res, next) => {
+exports.user_login = async function(req, res) {
   let user;
   try {
     user = await User.findOne({ contactIdentity: req.body.contactIdentity });
@@ -51,7 +46,7 @@ router.post('/login', async (req, res, next) => {
             userId: user._id,
             userName: user.userName
           },
-          'JKDSCOIWOEMSKDNCJNGOIWOEOKDWOXMWORIGOWITKOKWMLKXNWOEINOWEINDOWKSNWOFINEOWNWJSOQWITOOIERFPETIPKEJFNEOREIJF',
+          process.env.JWT_SECRET_KEY,
           {
             expiresIn: "30d"
           }
@@ -75,7 +70,6 @@ router.post('/login', async (req, res, next) => {
       message: "Login Failed"
     });
   }
-});
+};
 
-module.exports = router;
 
