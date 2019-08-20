@@ -37,7 +37,7 @@ exports.user_signup = function(req, res, next) {
 exports.user_login = async function(req, res) {
   let user;
   try {
-    user = await User.findOne({ contactIdentity: req.body.contactIdentity });
+    user = await User.findOne({ userName: req.body.userName });
     if (user) {
       let comparePassword = await bcrypt.compare(req.body.password, user.password);
       if (comparePassword) {
