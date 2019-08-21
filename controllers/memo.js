@@ -5,7 +5,7 @@ exports.test = function (req, res) {
     res.send('Greetings from the Test controller!');
 };
 
-exports.memo_create = function (req, res) {
+exports.memo_create = function (req, res, next) {
     let memo = new Memo(
         {
             title: req.body.title,
