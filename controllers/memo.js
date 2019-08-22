@@ -7,6 +7,7 @@ exports.memo_create = function (req, res, next) {
             title: req.body.title,
             content: req.body.content,
             color: req.body.color,
+            date: req.body.date,
             createBy: req.body.userName
         }
     );
