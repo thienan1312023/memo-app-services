@@ -14,6 +14,7 @@ module.exports = function (req, res, next) {
         next(error);
       } else {
         req.currentUserId = decodedValue.userId;
+        req.userName = decodedValue.userName;
         return next();
       }
     });

@@ -1,9 +1,5 @@
 const Memo = require('../models/memo');
 
-//Simple version, without validation or sanitation
-exports.test = function (req, res) {
-    res.send('Greetings from the Test controller!');
-};
 
 exports.memo_create = function (req, res, next) {
     let memo = new Memo(
@@ -22,15 +18,10 @@ exports.memo_create = function (req, res, next) {
     })
 };
 
-// exports.memo_details = function (req, res, next) {
-//     Memo.findById(req.params.id, function (err, memo) {
-//         if (err) return next(err);
-//         res.send(memo);
-//     })
-// };
+
 
 exports.memo_update = function (req, res, next) {
-    Memo.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, memo) {
+    Memo.findByIdAndUpdate(req.params.id, { $set: req.body }, function (err, memo) {
         if (err) return next(err);
         res.send('memo udpated.');
     });
@@ -43,13 +34,13 @@ exports.memo_delete = function (req, res, next) {
     })
 };
 
-exports.memo_getAll = function(req, res, next){
-    Memo.find((err, docs) => {
+exports.memo_getAll = function (req, res) {
+    Memo.find({ createBy: req.userName }, (err, docs) => {
         if (!err) {
-             res.send(docs); 
+            res.send(docs);
         }
-        else { 
-            console.log('Error in Retriving Catalog :' + JSON.stringify(err, undefined, 2)); 
+        else {
+            console.log('Error in Retriving Catalog :' + JSON.stringify(err, undefined, 2));
         }
     });
 }
