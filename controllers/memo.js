@@ -35,7 +35,7 @@ exports.memo_delete = function (req, res, next) {
 };
 
 exports.memo_getAll = function (req, res) {
-    Memo.find({ createBy: req.userName }, (err, docs) => {
+    Memo.find({ createBy: req.userName }).sort({ date: -1 }).exec(function(err, docs){
         if (!err) {
             res.send(docs);
         }
